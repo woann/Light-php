@@ -1,6 +1,9 @@
 {
     "name": "woann/light-php",
     "description": "High performance framework based on swoole",
+    "keywords": ["framework", "Light-php"],
+    "license": "MIT",
+    "type": "project",
     "authors": [
         {
             "name": "woann",
