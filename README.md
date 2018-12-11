@@ -1,11 +1,11 @@
 > 🚀`Light-php`是一个基于swoole的高性能php框架，轻量的封装和易用性，使它在中小型高性能项目中有着出色的表现。
 
-[![Latest Stable Version](https://poser.pugx.org/woann/Light-php/v/stable.svg)](https://woann.cn)
-[![Latest Unstable Version](https://poser.pugx.org/woann/Light-php/v/unstable.svg)](https://woann.cn)
-[![Total Downloads](https://poser.pugx.org/woann/Light-php/downloads.svg)](https://woann.cn)
+[![Latest Stable Version](https://poser.pugx.org/woann/Light-php/v/stable.svg)](https://packagist.org/packages/woann/light-php)
+[![Latest Unstable Version](https://poser.pugx.org/woann/Light-php/v/unstable.svg)](https://packagist.org/packages/woann/light-php)
+[![Total Downloads](https://poser.pugx.org/woann/Light-php/downloads.svg)](https://packagist.org/packages/woann/light-php)
 [![License](https://poser.pugx.org/woann/Light-php/license.svg)](https://github.com/woann/Light-php/blob/master/LICENSE)
 [![Php Version](https://img.shields.io/badge/php-%3E=7.2-brightgreen.svg?maxAge=2592000)](https://secure.php.net/)
-[![Wwoole Version](https://img.shields.io/badge/swoole-%3E=4.2.9-brightgreen.svg?maxAge=2592000)](https://laravel.com/)
+[![Swoole Version](https://img.shields.io/badge/swoole-%3E=4.2.9-brightgreen.svg?maxAge=2592000)](https://www.swoole.com/)
 
 ## 简单描述
 * 路由
