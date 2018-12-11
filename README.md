@@ -41,4 +41,4 @@
         return $this->json($res);
     }
 ```
-![image.png](https://upload-images.jianshu.io/upload_images/9160823-f1fe38c2c951ffc9.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240)
+![image.png](https://upload-images.jianshu.io/upload_images/9160823-d79e85afedbcab85.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240)
