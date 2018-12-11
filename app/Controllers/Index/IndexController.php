@@ -15,8 +15,8 @@ use Lib\DB;
 
 class IndexController extends Controller {
     public function index(){
-//        $res = DB::table('user')->select('a')->paginate(1);
-        return $this->json(['word'=>'hello world']);
+        $res = DB::table('user')->where('id',"=","1")->first();
+        return $this->json($res);
     }
 
     /**
