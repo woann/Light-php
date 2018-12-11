@@ -1,0 +1,27 @@
+{
+    "name": "xiaoler/blade",
+    "description": "an independent version of laravel view template - blade",
+    "license": "MIT",
+    "homepage": "http://0x1.im",
+    "support": {
+        "issues": "https://github.com/XiaoLer/blade/issues",
+        "source": "https://github.com/XiaoLer/blade"
+    },
+    "authors": [
+        {
+            "name": "Scholer Liu",
+            "email": "scholer_l@live.com"
+        }
+    ],
+    "require": {
+        "php": ">=5.4.0"
+    },
+    "autoload": {
+        "files": [
+            "src/helpers.php"
+        ],
+        "psr-4": {
+            "Xiaoler\\Blade\\": "src/"
+        }
+    }
+}

@@ -1,0 +1,16 @@
+{
+    "name": "woann/light-php",
+    "description": "High performance framework based on swoole",
+    "authors": [
+        {
+            "name": "woann",
+            "email": "304550409@qq.com"
+        }
+    ],
+    "require": {
+        "xiaoler/blade": "^5.4",
+        "illuminate/database": "^5.7",
+        "illuminate/pagination": "^5.7",
+        "vlucas/phpdotenv": "^2.5"
+    }
+}

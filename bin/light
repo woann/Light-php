@@ -1,0 +1,4 @@
+<?php
+//定义框架根路径
+require dirname(__DIR__).'/frame/base.php';
+start::run( isset($argv[1]) ? $argv[1] : '');
