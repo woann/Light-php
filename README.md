@@ -27,7 +27,7 @@
 
 ## 压力测试
 * 调用框架内一个json输出方法，输出如下内容：
-```
+```json
 {
     "word": "hello world"
 }
@@ -35,7 +35,7 @@
 ![image.png](https://upload-images.jianshu.io/upload_images/9160823-3ab2b3c662fb7ba6.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240)
 
 * 方法内有一条查询语句的压力测试
-```
+```php
  public function index(){
         $res = DB::table('user')->where('id',"=","1")->first();
         return $this->json($res);
