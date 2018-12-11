@@ -1,6 +1,6 @@
 .env
 .idea
-runtime/cache/
+runtime/cache/*
 runtime/light.pid
-logs/custom/
-logs/swoole/
+logs/custom/*
+logs/swoole/*
