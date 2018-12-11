@@ -18,7 +18,7 @@
 * 框架大部分使用单例模式
 ## 安装教程
 * 前提：安装swoole扩展，参考完整的[https://wiki.swoole.com/](https://wiki.swoole.com/)
-* 执行安装命令 `composer create-project woann/Light-php` 或者`git clone https://github.com/woann/Light-php.git` 
+* 执行安装命令 `composer create-project woann/light-php` 或者`git clone https://github.com/woann/Light-php.git` 
 * 重命名`.env.example`文件为`.env`,并配置
 * 项目根目录下执行 `php bin\light start` 启动服务
 ![image.png](https://upload-images.jianshu.io/upload_images/9160823-d5a075e73fd5faeb.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240)
