@@ -15,7 +15,7 @@ return [
     'ext'           => '.html',          //url后缀    例如 .html
     'http'          =>  [           //http路由
         //uri-----请求方法----模块/控制器/方法----------中间件
-        '/'         => ['GET','Index/Index/index','Test'],
+        '/'         => ['POST','Index/Index/index','Test'],
         'ws_page'   => ['GET','Index/Index/page'],
     ],
     'websocket'     =>  [           //websocket路由

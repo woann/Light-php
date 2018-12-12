@@ -133,3 +133,15 @@ function view($view,array $param = [])
     return $factory->make($view, $param)->render();
 }
 
+function uploadFile($file,$path,$filename)
+{
+    $up = new \Lib\FileUpload();
+    $up->set('path',root_path('resources/uploads'))
+        ->set('size',1)
+        ->set('allowtype',array('gif','jpg','png'))
+        ->set('israndname',true);
+    $res = $up->upload($file,$path,$filename);
+    unset($up);
+    return $res;
+
+}

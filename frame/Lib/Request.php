@@ -75,11 +75,14 @@ class Request
      */
     public function get($name = null)
     {
+        if (!$this->get){
+            return null;
+        }
         if (is_array($name) || $name == null) {
             $data = [];
             foreach ($this->get as $k=>$v){
-                if ($name == null) {
-                    if (in_array($k, $name)) {
+                if ($name != null) {
+                    if (is_array($name) && in_array($k, $name)) {
                         $data[$k] = $v;
                     }else{
                         return null;
@@ -103,11 +106,14 @@ class Request
      */
     public function post($name = null)
     {
+        if (!$this->post){
+            return null;
+        }
         if (is_array($name) || $name == null) {
             $data = [];
             foreach ($this->post as $k=>$v){
-                if ($name == null) {
-                    if (in_array($k, $name)) {
+                if ($name != null) {
+                    if (is_array($name) && in_array($k, $name)) {
                         $data[$k] = $v;
                     }else{
                         return null;
@@ -121,6 +127,15 @@ class Request
         if (is_string($name)){
             return $this->post[$name] ?? null;
         }
+    }
 
+    public function getFiles()
+    {
+        return $this->files;
+    }
+
+    public function getFile($key)
+    {
+        return $this->files[$key];
     }
 }
