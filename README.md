@@ -94,7 +94,7 @@ class Test implements Middleware{
 
 ## 控制器
 
-控制器文件应建立在`/app/Controller`目录下，类名与文件名要一致，必须继承`Lib\Controller`类，示例：
+1.创建控制器，控制器文件应建立在`/app/Controller`目录下，类名与文件名要一致，必须继承`Lib\Controller`类，示例：
 
 ```php
 <?php
@@ -126,6 +126,20 @@ class IndexController extends Controller {
     }
     
 }
+```
+2.获取参数
+```php
+    //获取get参数
+    $this->request->get()；//获取所有get参数:array
+    $this->request->get("name")；//传参字符串，获取key为name的参数:string
+    $this->request->get(["name","age"])；//传参数组，获取key为name和age的参数:array
+    
+    //获取post参数
+    $this->request->post()；//获取所有get参数:array
+    $this->request->post("name")；//传参字符串，获取key为name的参数:string
+    $this->request->post(["name","age"])；//传参数组，获取key为name和age的参数:array
+    
+    //获取上传文件
 ```
 
 ## 钩子
