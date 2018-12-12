@@ -15,11 +15,11 @@ return [
     'ext'           => '.html',          //url后缀    例如 .html
     'http'          =>  [           //http路由
         //uri-----请求方法----模块/控制器/方法----------中间件
-        '/' => ['GET','Index/Index/index','Test'],
-        'ws'    => ['GET','Index/Index/ws']
+        '/'         => ['GET','Index/Index/index','Test'],
+        'ws_page'   => ['GET','Index/Index/page'],
     ],
     'websocket'     =>  [           //websocket路由
         //uri----模块/控制器/方法
-        'ws' => 'Index/WebSocket/index',
+        'ws'        => 'Index/WebSocket/index',
     ]
 ];

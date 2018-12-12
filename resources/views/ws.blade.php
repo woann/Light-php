@@ -12,7 +12,6 @@
 </head>
 
 <body>
-<div style="width: 100px;height: 100px;background: red"></div>
 <input id="msg" type="text"/>
 <button id="btn_send">发送消息 </button>
 
@@ -23,8 +22,8 @@
     var websocket = null;
     //判断当前浏览器是否支持WebSocket
     if ('WebSocket' in window) {
-        websocket = new WebSocket("ws://127.0.0.1:9501/");
-        set_msg_innerhtml('尝试连接 ws://127.0.0.1:9501/ ')
+        websocket = new WebSocket("ws://127.0.0.1:9521/");
+        set_msg_innerhtml('尝试连接 ws://127.0.0.1:9521/ ')
     } else {
         set_msg_innerhtml('当前浏览器不支持WebSocket')
     }
@@ -41,7 +40,7 @@
     //连接成功建立的回调方法
     websocket.onopen = function () {
 
-        set_msg_innerhtml("ws://127.0.0.1:9501/ 连接成功");
+        set_msg_innerhtml("ws://127.0.0.1:9521/ 连接成功");
     }
 
     //接收到消息的回调方法

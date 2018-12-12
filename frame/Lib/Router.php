@@ -91,14 +91,14 @@ class Router
 
         $data = json_decode ($data , true );
         if(empty($data)){
-            echo 'WEBSOCKET-json解包错误',PHP_EOL;
+            Log::getInstance()->write("WARNING", 'WEBSOCKET-json解包错误',PHP_EOL);
             return ['m'=>NULL ,'c'=>NULL,'a'=>NULL ,'p' =>  NULL] ;
         }
 
         $path = empty($data['route']) ? '' : trim($data['route'], '/');
 
         if(empty($path)){
-            echo '请求地址错误',PHP_EOL;
+            Log::getInstance()->write("WARNING", '请求地址错误',PHP_EOL);
             return ['m'=>NULL ,'c'=>NULL,'a'=>NULL ,'p' =>  NULL] ;
         }
 

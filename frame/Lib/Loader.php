@@ -44,8 +44,6 @@ class Loader
                 self::$map[$class] = $path;
                 return $path;
             }
-
-//            echo "{$dir}{$logicalPath} 找啊找，找不到，你说气人不气人",PHP_EOL;
         }
         return  false;
     }

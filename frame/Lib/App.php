@@ -25,7 +25,7 @@ class App{
         return self::$instance;
     }
 
-    public function http($request,$response){
+    public function http($server,$request,$response){
         $req    = Request::getInstance ();
         $req->set($request);
         $router = Router::getInstance ()->http($req->server['request_uri']);
@@ -49,7 +49,7 @@ class App{
             //如果控制器不存在
             $response->header('Content-type',"text/html;charset=utf-8;");
             $response->status(404);
-            $content = Exception::render('404','哎我去！页面呢？？');
+            $content = Exception::render('404','哎我去！控制器呢？？');
             $response->end($content);
             return ;
         }
@@ -68,7 +68,7 @@ class App{
         if (!method_exists(self::$map[$classname],$action)) {
             $response->header('Content-type',"text/html;charset=utf-8;");
             $response->status(404);
-            $content = Exception::render('404','哎我去！页面呢？？');
+            $content = Exception::render('404','哎我去！方法呢？？');
             $response->end($content);
             return ;
         }
@@ -94,6 +94,7 @@ class App{
             ob_start();
             self::$map[$classname]->response = $response;
             self::$map[$classname]->request = $req;
+            self::$map[$classname]->server = $server;
             $result = self::$map[$classname]->$action($param);
             $content = ob_get_contents();
             ob_end_clean();
@@ -119,12 +120,12 @@ class App{
             try{
                 $class = new $classname;
                 if(get_parent_class ($class) != 'Lib\WsController'){
-                    echo "[{$classname}]  必须继承 Lib\WsController",PHP_EOL;
+                    Log::getInstance()->write("ALERT","[{$classname}]  必须继承 Lib\WsController",PHP_EOL);
                     return ;
                 }
                 self ::$map[ $classname ] = $class;
             }catch (\Exception $e){
-                echo $e->getMessage (),PHP_EOL;
+                Log::getInstance()->write("ALERT",$e->getMessage (),PHP_EOL);
                 return ;
             }
         }
@@ -135,7 +136,7 @@ class App{
             self::$map[$classname]->task = Task::getInstance()->setServer($server);
             self::$map[$classname]->$action($param);
         }catch(\Exception $e){
-            echo $e->getMessage (),PHP_EOL;
+            Log::getInstance()->write("ALERT",$e->getMessage (),PHP_EOL);
             return ;
         }
     }

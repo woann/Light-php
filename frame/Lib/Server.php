@@ -63,7 +63,7 @@ class Server
             return ;
         }
         register_shutdown_function('handleFatal',$request,$response);
-        App::getInstance()->http ($request,$response);
+        App::getInstance()->http ($this->server,$request,$response);
     }
 
     // Websocket相关回调 ----------------------------------------------------------------------

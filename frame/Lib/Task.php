@@ -42,7 +42,7 @@ final class Task
      */
     final public function delivery($class,$func,$params=[]){
         $task_id =  $this->server->task([$class,$func,$params]);
-        echo "投递任务","\t","TaskID:{$task_id},","Class:{$class}","Func:{$func}","Params:".join (",",$params),PHP_EOL;
+        Log::getInstance()->write("ALERT","投递任务","\t","TaskID:{$task_id},","Class:{$class}","Func:{$func}","Params:".join (",",$params),PHP_EOL);
         return $task_id;
     }
 
@@ -52,7 +52,7 @@ final class Task
     final public function dispatch($task_id,$workder_id,$data){
         $ret = NULL ;
         if(empty($data)){
-            echo "任务内容不合法","\t","TaskID:{$task_id}","任务内容不合法,必须传递数据，格式 [classname,function,params]",PHP_EOL;
+            Log::getInstance()->write("ALERT","任务内容不合法","\t","TaskID:{$task_id}","任务内容不合法,必须传递数据，格式 [classname,function,params]",PHP_EOL);
             return FALSE;
         }
         list($classname , $func,$params) = $data ;
@@ -69,7 +69,7 @@ final class Task
      * 完成任务
      */
     final public function finish($task_id,$data){
-        echo "TaskID:{$task_id}\t{$data}",PHP_EOL;
+        Log::getInstance()->write("ALERT","TaskID:{$task_id}\t{$data}",PHP_EOL);
     }
 
     public function __get($name){

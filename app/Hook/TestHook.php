@@ -19,7 +19,7 @@ class TestHook extends BaseHook {
     public function start($name,$ip,$port)
     {
         //当server启动时执行此钩子
-        Log::getInstance()->write('INFO',$name,"启动成功","{$ip}:{$port}","at",date('Y-m-d H:i:s'));
+        Log::getInstance()->write('INFO',$name,"启动成功","{$ip}:{$port}","at",date('Y-m-d H:i:s').PHP_EOL);
     }
     public function open($server,$fd){
         //可以在此执行websocket链接成功后绑定用户id和fd的操作
