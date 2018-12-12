@@ -2,17 +2,13 @@
 // +----------------------------------------------------------------------
 // | Created by PhpStorm
 // +----------------------------------------------------------------------
-// | Date: 2018/12/8
-// +----------------------------------------------------------------------
-// | Blog: ( http://www.woann.cn )
+// | Date: 18-12-12 下午12:10
 // +----------------------------------------------------------------------
 // | Author: woann <304550409@qq.com>
 // +----------------------------------------------------------------------
-namespace app\Controllers\Index;
-
-use Lib\Controller;
-class IndexController extends Controller {
-    public function index(){
-       return "hello world";
-    }
+namespace app\Models;
+use Illuminate\Database\Eloquent\Model;
+class Test extends Model
+{
+    protected $table = 'user';
 }
