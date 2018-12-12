@@ -29,7 +29,8 @@ return [
         'document_root' => root_path('resources/'),
         'enable_static_handler' => true,
         'log_file'              => root_path("logs/swoole/".date('Ymd').'.log'),
-        'log_level'             => 5
+        'log_level'             => 5,
+        'enable_coroutine'      => false
     ],
 
     'log' => [
