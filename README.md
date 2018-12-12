@@ -144,7 +144,7 @@ class IndexController extends Controller {
     $this->request->getFile("image");//获取指定文件
     //文件上传
     //--------文件----[路径]（基于/resources/uploads/）---[新文件名]（默认为随机生成）
-    uploadFile($file,"banner","test.png");//上传文件方法 
+    uploadFile($file,"banner","test.png");//上传文件方法 开发者也可以不用此方法自己写上传操作
 ```
 
 ## 钩子
