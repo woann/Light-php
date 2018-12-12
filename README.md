@@ -52,7 +52,7 @@ git clone https://github.com/woann/Light-php.git
 
 ## 路由
 
-以下是一个路由示例
+以下是一个路由示例`/config/route.php`，包含http路由和websocket路由(注意：路由中，控制器参数为控制器的简写，实际控制器文件应在后追加`Controller`)
 ```php
 return [
     'm'             => 'index',    //默认模块
@@ -70,6 +70,200 @@ return [
     ]
 ];
 ```
+
+## 中间件
+
+中间件文件应建立在`/app/Middleware`目录下，类名与文件名要一致，并实现`Lib\Middleware`接口，中间件处理方法名必须为`handle`,过滤后如果通过最终返回结果必须为`true`。示例：
+
+```php
+<?php
+namespace app\Middleware;
+
+use Lib\Middleware;
+class Test implements Middleware{
+    public function handle($request)
+    {
+        //在此处理中间件判断逻辑，
+        //...
+
+        //程序最后通过验证后，返回true;
+        return true;
+    }
+}
+```
+
+## 控制器
+
+1.创建控制器，控制器文件应建立在`/app/Controller`目录下，类名与文件名要一致，必须继承`Lib\Controller`类，示例：
+
+```php
+<?php
+namespace app\Controllers\Index;
+
+use Lib\Controller;
+
+class IndexController extends Controller {
+    //普通输出
+    public function index()
+    {
+        return 'hello world';
+    }
+    
+    //输出json
+    public function index1()
+    {
+        return $this->json(["code" => 200, "msg" => "success"]);
+    }
+    
+    //调用模板
+     public function index2()
+    {
+        $a = "test";
+        //输出/app/resources/views目录下index.blade.php模板，并携带参数$a。支持用 . 拼接模板路径（和laravel中模板引擎部分一样）
+        return $this->view("index",["a" => $a]);
+        //也可以直接调用view函数
+        return view("admin.index",["a" => $a]);
+    }
+    
+}
+```
+2.获取参数
+```php
+    //获取get参数
+    $this->request->get()；//获取所有get参数:array
+    $this->request->get("name")；//传参字符串，获取key为name的参数:string
+    $this->request->get(["name","age"])；//传参数组，获取key为name和age的参数:array
+    
+    //获取post参数
+    $this->request->post()；//获取所有get参数:array
+    $this->request->post("name")；//传参字符串，获取key为name的参数:string
+    $this->request->post(["name","age"])；//传参数组，获取key为name和age的参数:array
+    
+    //获取上传文件
+    $this->request->getFiles();//获取所有
+    $this->request->getFile("image");//获取指定文件
+    //文件上传
+    //--------文件----[路径]（基于/resources/uploads/）---[新文件名]（默认为随机生成）
+    uploadFile($file,"banner","test.png");//上传文件方法 
+```
+
+## 钩子
+
+1.创建钩子，钩子文件应建立在`/app/Hook`目录下，类名与文件名要一致，必须继承`Lib\BaseHook`类，示例：
+
+```php
+<?php
+namespace app\Hook;
+
+use Lib\BaseHook;
+use Lib\Log;
+class TestHook extends BaseHook {
+    public function start($name,$ip,$port)
+    {
+        //当server启动时执行此钩子
+        Log::getInstance()->write('INFO',$name,"启动成功","{$ip}:{$port}","at",date('Y-m-d H:i:s'));
+    }
+    public function open($server,$fd){
+        //可以在此执行websocket链接成功后绑定用户id和fd的操作
+    }
+    public function close($server,$fd){
+        //可以在此执行websocket关闭链接后解绑用户id和fd的操作
+    }
+}
+```
+
+2.在钩子配置文件`/app/config/hook.php`中注册钩子
+
+```php
+<?php
+return [
+    //Server::onStart
+    'start'     => [
+        [\app\Hook\TestHook::class,'start'],
+    ],
+    //Server::onOpen
+    'open'      => [
+        [\app\Hook\TestHook::class,'open'],
+    ],
+    //Server::onClose
+    'close'     => [
+        [\app\Hook\TestHook::class,'close'],
+    ],
+];
+
+```
+
+3.使用钩子
+
+```php
+//--获取钩子服务实例----监听方法--钩子名---参数（...）------
+Hook::getInstance()->listen("start",$this->name,$this->config['ip'],$this->config['port']);
+```
+## Task任务
+1.创建Task类，Task文件应建立在`/app/Task`目录下，类名与文件名要一致，示例：
+
+```php
+<?php
+namespace app\Task;
+
+class Notice{
+    /**
+     * 给所有在线客户端发送消息
+     * @param $fd       发起请求的FD
+     * @param $data     要发送的内容
+     *
+     * @return bool
+     */
+    public function ToAll($fd,$data){
+        $fds = [] ;//用来存放所有客户端fd
+        foreach($this->server->connections as $client_fd){
+            if($fd != $client_fd && $this->server->exist($client_fd)){
+                //循环向客户端输出消息，排除掉发送者fd
+                $this->server->push($client_fd,$data);
+                $fds[] = $client_fd;
+            }
+        }
+        return "已向[".join(",",$fds)."]发送通知内容：".$data;
+    }
+}
+
+```
+2.控制器中投递任务
+
+```php
+//---------获取task示例----赋值server---------------投递任务---任务类------------方法------------参数
+\Lib\Task::getInstance()->setServer($this->server)->delivery(\app\Task\Notice::class,'ToAll',[1,"123"]);
+```
+## WebSocket
+
+1.开启websocket server，配置`.env`文件`SERVER_TYPE=websocket`,此配置环境下可同时监听http
+
+2.定义路由，参考文档路由部分，在路由配置文件`/config/route.php`，`websocket`索引下定义路由。
+
+3.控制器示例
+```php
+<?php
+namespace app\Controllers\Index;
+
+use Lib\WsController;
+class WebSocketController extends WsController {
+    public function index()
+    {
+        //给客户端发送消息
+        //$this->>fd 客户端唯一标示
+        //$this->>server websocket server对象（此对象提供的功能参考swoole文档）
+        //
+        $data = "哈哈哈我是一条消息";
+        $data2 = "这是一条通过task任务群发消息";
+        $this->server->push($this->fd,$data);
+        //投递异步任务
+        $this->task->delivery (\app\Task\Notice::class,'ToAll',[$this->fd,$data2]);
+    }
+
+}
+```
+
+4.前端略过...
 
 ## 压力测试
 * 调用框架内一个json输出方法，输出如下内容：
