@@ -90,7 +90,7 @@ class Test implements Middleware{
 }
 ```
 ## 控制器
-中间件文件应建立在`/app/Controller`目录下，类名与文件名要一致，必须继承`Lib\Controller`类，示例：
+控制器文件应建立在`/app/Controller`目录下，类名与文件名要一致，必须继承`Lib\Controller`类，示例：
 ```php
 <?php
 namespace app\Controllers\Index;
@@ -122,7 +122,52 @@ class IndexController extends Controller {
     
 }
 ```
+## 钩子
+1.创建钩子，钩子文件应建立在`/app/Hook`目录下，类名与文件名要一致，必须继承`Lib\BaseHook`类，示例：
+```php
+<?php
+namespace app\Hook;
 
+use Lib\BaseHook;
+use Lib\Log;
+class TestHook extends BaseHook {
+    public function start($name,$ip,$port)
+    {
+        //当server启动时执行此钩子
+        Log::getInstance()->write('INFO',$name,"启动成功","{$ip}:{$port}","at",date('Y-m-d H:i:s'));
+    }
+    public function open($server,$fd){
+        //可以在此执行websocket链接成功后绑定用户id和fd的操作
+    }
+    public function close($server,$fd){
+        //可以在此执行websocket关闭链接后解绑用户id和fd的操作
+    }
+}
+```
+2.在钩子配置文件`/app/config/hook.php`中注册钩子
+```php
+<?php
+return [
+    //Server::onStart
+    'start'     => [
+        [\app\Hook\TestHook::class,'start'],
+    ],
+    //Server::onOpen
+    'open'      => [
+        [\app\Hook\TestHook::class,'open'],
+    ],
+    //Server::onClose
+    'close'     => [
+        [\app\Hook\TestHook::class,'close'],
+    ],
+];
+
+```
+3.使用钩子
+```php
+//--获取钩子服务实例----监听方法--钩子名---参数（...）------
+Hook::getInstance()->listen("start",$this->name,$this->config['ip'],$this->config['port']);
+```
 ## 压力测试
 * 调用框架内一个json输出方法，输出如下内容：
 ```json
