@@ -51,7 +51,8 @@ class Router
             return ['m'=>$module ,'c'=>$controller,'a'=>$action,'p'=>$param];
         }
         //去掉uri左边的"/"
-        $path = trim($request_uri, '/');
+//        $path = trim($request_uri, '/');
+        $path = $request_uri;
         if(!empty( self::$config['ext']) &&substr($path,-strlen(self::$config['ext'])) == self::$config['ext'] ){
             $path = substr($path , 0 , strlen($path)-strlen(self::$config['ext']));
         }
