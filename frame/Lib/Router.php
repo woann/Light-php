@@ -50,6 +50,7 @@ class Router
         if(empty($request_uri)) {
             return ['m'=>$module ,'c'=>$controller,'a'=>$action,'p'=>$param];
         }
+
         //去掉uri左边的"/"
         if ($request_uri != '/') {
             $path = trim($request_uri, '/');
