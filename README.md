@@ -266,7 +266,11 @@ class WebSocketController extends WsController {
 4.前端略过(视图目录中有一个ws.blade.php文件，可以用来测试websocket)...
 
 ## 数据库
-数据库采用`laravel`框架的`Illuminate\Database`，熟悉laravel的小伙伴可极速上手，参考[文档](https://laravelacademy.org/post/9577.html)
+
+数据库采用`laravel`框架的`Illuminate\Database`，熟悉laravel的小伙伴可极速上手。
+
+1.查询构建器，参考[文档](https://laravelacademy.org/post/9577.html)
+
 ```php
 <?php
 namespace app\Controllers\Index;
@@ -280,6 +284,18 @@ class IndexController extends Controller {
         $res = DB::table('user')->where('id',1)->first();
     }
     
+}
+```
+
+2.Model,参考[文档](https://laravelacademy.org/post/9583.html)
+
+```php
+namespace app\Models;
+
+use Illuminate\Database\Eloquent\Model;
+class User extends Model
+{
+    protected $table = 'user';
 }
 ```
 
