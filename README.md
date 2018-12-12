@@ -38,15 +38,38 @@ git clone https://github.com/woann/Light-php.git
 ## 配置文件
 1.Light-php的配置文件在`/config`目录下，框架集成了全局环境配置文件`/.env`,常规配置都在.env文件中进行配置。
 
-2.`/config/app`,框架主要配置文件主要用来配置`swoole`扩展相关参数。
+2.`/config/app.php`,框架主要配置文件主要用来配置`swoole`扩展相关参数。
 
-3.`/config/databases`,数据库配置文件，配置了数据库连接相关参数。
+3.`/config/databases.php`,数据库配置文件，配置了数据库连接相关参数。
 
-4.`/config/hook`,配置钩子(钩子主要用来将业务逻辑和通知服务分离)。
+4.`/config/hook.php`,配置钩子(钩子主要用来将业务逻辑和通知服务分离)。
 
-5.`/config/redis`,`redis`配置文件，配置了`redis`连接相关参数。
+5.`/config/redis.php`,`redis`配置文件，配置了`redis`连接相关参数。
 
-6.以上配置文件具体参数意义在代码中都有注释，这里不做更多介绍
+6.`/config/route.php`,路由配置文件。
+
+7.以上配置文件具体参数意义在代码中都有注释，这里不做更多介绍
+
+## 路由
+
+以下是一个路由示例
+```php
+return [
+    'm'             => 'index',    //默认模块
+    'c'             => 'index',    //默认控制器
+    'a'             => 'init',     //默认操作
+    'ext'           => '.html',    //伪静态后缀    例如 .html
+    'http'          =>  [          //http路由
+        //uri-----请求方法----模块/控制器/方法----[中间件]
+        '/'     => ['GET','Index/Index/index','Test'],
+        'test/'    => ['GET','Index/Index/ws']
+    ],
+    'websocket'     =>  [           //websocket路由
+        //uri----模块/控制器/方法
+        'ws' => 'Index/WebSocket/index',
+    ]
+];
+```
 
 ## 压力测试
 * 调用框架内一个json输出方法，输出如下内容：
