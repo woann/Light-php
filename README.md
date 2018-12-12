@@ -140,6 +140,11 @@ class IndexController extends Controller {
     $this->request->post(["name","age"])；//传参数组，获取key为name和age的参数:array
     
     //获取上传文件
+    $this->request->getFiles();//获取所有
+    $this->request->getFile("image");//获取指定文件
+    //文件上传
+    //--------文件----[路径]（基于/resources/uploads/）---[新文件名]（默认为随机生成）
+    uploadFile($file,"banner","test.png");//上传文件方法 
 ```
 
 ## 钩子
