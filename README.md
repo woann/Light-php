@@ -263,7 +263,25 @@ class WebSocketController extends WsController {
 }
 ```
 
-4.前端略过...
+4.前端略过(视图目录中有一个ws.blade.php文件，可以用来测试websocket)...
+
+## 数据库
+数据库采用`laravel`框架的`Illuminate\Database`，熟悉laravel的小伙伴可极速上手，参考[文档](https://laravelacademy.org/post/9577.html)
+```php
+<?php
+namespace app\Controllers\Index;
+
+use Lib\Controller;
+use Lib\DB;
+class IndexController extends Controller {
+
+    public function index()
+    {
+        $res = DB::table('user')->where('id',1)->first();
+    }
+    
+}
+```
 
 ## 压力测试
 * 调用框架内一个json输出方法，输出如下内容：
