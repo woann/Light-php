@@ -29,11 +29,11 @@ git clone https://github.com/woann/Light-php.git
 
 2.重命名`.env.example`文件为`.env`,并配置
 
-3. 项目根目录下执行 `php bin\light start` 启动服务
+3.项目根目录下执行 `php bin\light start` 启动服务
 
 ![image.png](https://upload-images.jianshu.io/upload_images/9160823-d5a075e73fd5faeb.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240)
 
-4. 浏览器访问`http://127.0.0.1:9521` 即可看到下图所示
+4.浏览器访问`http://127.0.0.1:9521` 即可看到下图所示
 
 
 ## 压力测试
