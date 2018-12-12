@@ -72,7 +72,9 @@ return [
 ```
 
 ## 中间件
+
 中间件文件应建立在`/app/Middleware`目录下，类名与文件名要一致，并实现`Lib\Middleware`接口，中间件处理方法名必须为`handle`,过滤后如果通过最终返回结果必须为`true`。示例：
+
 ```php
 <?php
 namespace app\Middleware;
@@ -89,8 +91,11 @@ class Test implements Middleware{
     }
 }
 ```
+
 ## 控制器
+
 控制器文件应建立在`/app/Controller`目录下，类名与文件名要一致，必须继承`Lib\Controller`类，示例：
+
 ```php
 <?php
 namespace app\Controllers\Index;
@@ -122,8 +127,11 @@ class IndexController extends Controller {
     
 }
 ```
+
 ## 钩子
+
 1.创建钩子，钩子文件应建立在`/app/Hook`目录下，类名与文件名要一致，必须继承`Lib\BaseHook`类，示例：
+
 ```php
 <?php
 namespace app\Hook;
@@ -144,7 +152,9 @@ class TestHook extends BaseHook {
     }
 }
 ```
+
 2.在钩子配置文件`/app/config/hook.php`中注册钩子
+
 ```php
 <?php
 return [
@@ -163,13 +173,16 @@ return [
 ];
 
 ```
+
 3.使用钩子
+
 ```php
 //--获取钩子服务实例----监听方法--钩子名---参数（...）------
 Hook::getInstance()->listen("start",$this->name,$this->config['ip'],$this->config['port']);
 ```
 ## Task任务
 1.创建Task类，Task文件应建立在`/app/Task`目录下，类名与文件名要一致，示例：
+
 ```php
 <?php
 namespace app\Task;
@@ -197,13 +210,17 @@ class Notice{
 
 ```
 2.控制器中投递任务
+
 ```php
 //---------获取task示例----赋值server---------------投递任务---任务类------------方法------------参数
 \Lib\Task::getInstance()->setServer($this->server)->delivery(\app\Task\Notice::class,'ToAll',[1,"123"]);
 ```
 ## WebSocket
+
 1.开启websocket server，配置`.env`文件`SERVER_TYPE=websocket`,此配置环境下可同时监听http
+
 2.定义路由，参考文档路由部分，在路由配置文件`/config/route.php`，`websocket`索引下定义路由。
+
 3.控制器示例
 ```php
 <?php
@@ -226,6 +243,7 @@ class WebSocketController extends WsController {
 
 }
 ```
+
 4.前端略过...
 
 ## 压力测试
