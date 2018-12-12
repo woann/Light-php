@@ -52,7 +52,7 @@ git clone https://github.com/woann/Light-php.git
 
 ## 路由
 
-以下是一个路由示例
+以下是一个路由示例(注意：路由中，控制器参数为控制器的简写，实际控制器文件应在后追加`Controller`)
 ```php
 return [
     'm'             => 'index',    //默认模块
@@ -69,6 +69,58 @@ return [
         'ws' => 'Index/WebSocket/index',
     ]
 ];
+```
+
+## 中间件
+中间件文件应建立在`/app/Middleware`目录下，类名与文件名要一致，并实现`Lib\Middleware`接口，中间件处理方法名必须为`handle`,过滤后如果通过最终返回结果必须为`true`。示例：
+```php
+<?php
+namespace app\Middleware;
+
+use Lib\Middleware;
+class Test implements Middleware{
+    public function handle($request)
+    {
+        //在此处理中间件判断逻辑，
+        //...
+
+        //程序最后通过验证后，返回true;
+        return true;
+    }
+}
+```
+## 控制器
+中间件文件应建立在`/app/Controller`目录下，类名与文件名要一致，必须继承`Lib\Controller`类，示例：
+```php
+<?php
+namespace app\Controllers\Index;
+
+use Lib\Controller;
+
+class IndexController extends Controller {
+    //普通输出
+    public function index()
+    {
+        return 'hello world';
+    }
+    
+    //输出json
+    public function index1()
+    {
+        return $this->json(["code" => 200, "msg" => "success"]);
+    }
+    
+    //调用模板
+     public function index2()
+    {
+        $a = "test";
+        //输出/app/resources/views目录下index.blade.php模板，并携带参数$a。支持用 . 拼接模板路径（和laravel中模板引擎部分一样）
+        return $this->view("index",["a" => $a]);
+        //也可以直接调用view函数
+        return view("admin.index",["a" => $a]);
+    }
+    
+}
 ```
 
 ## 压力测试
