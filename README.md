@@ -52,7 +52,7 @@ git clone https://github.com/woann/Light-php.git
 
 ## 路由
 
-以下是一个路由示例(注意：路由中，控制器参数为控制器的简写，实际控制器文件应在后追加`Controller`)
+以下是一个路由示例`/config/route.php`，包含http路由和websocket路由(注意：路由中，控制器参数为控制器的简写，实际控制器文件应在后追加`Controller`)
 ```php
 return [
     'm'             => 'index',    //默认模块
@@ -168,6 +168,66 @@ return [
 //--获取钩子服务实例----监听方法--钩子名---参数（...）------
 Hook::getInstance()->listen("start",$this->name,$this->config['ip'],$this->config['port']);
 ```
+## Task任务
+1.创建Task类，Task文件应建立在`/app/Task`目录下，类名与文件名要一致，示例：
+```php
+<?php
+namespace app\Task;
+
+class Notice{
+    /**
+     * 给所有在线客户端发送消息
+     * @param $fd       发起请求的FD
+     * @param $data     要发送的内容
+     *
+     * @return bool
+     */
+    public function ToAll($fd,$data){
+        $fds = [] ;//用来存放所有客户端fd
+        foreach($this->server->connections as $client_fd){
+            if($fd != $client_fd && $this->server->exist($client_fd)){
+                //循环向客户端输出消息，排除掉发送者fd
+                $this->server->push($client_fd,$data);
+                $fds[] = $client_fd;
+            }
+        }
+        return "已向[".join(",",$fds)."]发送通知内容：".$data;
+    }
+}
+
+```
+2.控制器中投递任务
+```php
+//---------获取task示例----赋值server---------------投递任务---任务类------------方法------------参数
+\Lib\Task::getInstance()->setServer($this->server)->delivery(\app\Task\Notice::class,'ToAll',[1,"123"]);
+```
+## WebSocket
+1.开启websocket server，配置`.env`文件`SERVER_TYPE=websocket`,此配置环境下可同时监听http
+2.定义路由，参考文档路由部分，在路由配置文件`/config/route.php`，`websocket`索引下定义路由。
+3.控制器示例
+```php
+<?php
+namespace app\Controllers\Index;
+
+use Lib\WsController;
+class WebSocketController extends WsController {
+    public function index()
+    {
+        //给客户端发送消息
+        //$this->>fd 客户端唯一标示
+        //$this->>server websocket server对象（此对象提供的功能参考swoole文档）
+        //
+        $data = "哈哈哈我是一条消息";
+        $data2 = "这是一条通过task任务群发消息";
+        $this->server->push($this->fd,$data);
+        //投递异步任务
+        $this->task->delivery (\app\Task\Notice::class,'ToAll',[$this->fd,$data2]);
+    }
+
+}
+```
+4.前端略过...
+
 ## 压力测试
 * 调用框架内一个json输出方法，输出如下内容：
 ```json
