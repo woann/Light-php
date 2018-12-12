@@ -6,6 +6,20 @@
 [![License](https://poser.pugx.org/woann/Light-php/license.svg)](https://github.com/woann/Light-php/blob/master/LICENSE)
 [![Php Version](https://img.shields.io/badge/php-%3E=7.2-brightgreen.svg?maxAge=2592000)](https://secure.php.net/)
 [![Swoole Version](https://img.shields.io/badge/swoole-%3E=4.2.9-brightgreen.svg?maxAge=2592000)](https://www.swoole.com/)
+文档
+=================
+
+* [环境要求](#环境要求)
+* [安装教程](#安装教程)
+* [配置文件](#配置文件)
+* [路由](#路由)
+* [中间件](#中间件)
+* [控制器](#控制器)
+* [钩子](#钩子)
+* [Task任务](#Task任务)
+* [WebSocket](#WebSocket)
+* [数据库](#数据库)
+* [压力测试](#压力测试)
 
 ## 环境要求
 
@@ -127,7 +141,9 @@ class IndexController extends Controller {
     
 }
 ```
+
 2.获取参数
+
 ```php
     //获取get参数
     $this->request->get()；//获取所有get参数:array
