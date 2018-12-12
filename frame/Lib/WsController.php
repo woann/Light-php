@@ -11,7 +11,7 @@ namespace Lib;
 class WsController
 {
     /**
-     * @var \Piz\Router
+     * @var \Lib\Router
      */
     protected $router;
     /**

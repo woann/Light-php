@@ -6,6 +6,8 @@
 // +----------------------------------------------------------------------
 // | Author: woann <304550409@qq.com>
 // +----------------------------------------------------------------------
+use Illuminate\Container\Container;
+use Illuminate\Database\Capsule\Manager as Capsule;
 $config = config("databases");
 $database = [
     'driver'        => $config['db_connection'],
@@ -17,17 +19,10 @@ $database = [
     'collation'     => $config['db_collation'],
     'prefix'        => $config['db_prefix'],
 ];
-
-use Illuminate\Container\Container;
-use Illuminate\Database\Capsule\Manager as Capsule;
-
 $capsule = new Capsule;
-
 // 创建链接
 $capsule->addConnection($database);
-
 // 设置全局静态可访问DB
 $capsule->setAsGlobal();
-
 // 启动Eloquent
 $capsule->bootEloquent();

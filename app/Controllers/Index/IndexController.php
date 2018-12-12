@@ -12,7 +12,8 @@ namespace app\Controllers\Index;
 
 use Lib\Controller;
 class IndexController extends Controller {
-    public function index(){
+    public function index()
+    {
        return "hello world";
     }
 }

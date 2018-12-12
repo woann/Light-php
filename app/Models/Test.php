@@ -7,6 +7,7 @@
 // | Author: woann <304550409@qq.com>
 // +----------------------------------------------------------------------
 namespace app\Models;
+
 use Illuminate\Database\Eloquent\Model;
 class Test extends Model
 {

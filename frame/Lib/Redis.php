@@ -7,6 +7,7 @@
 // | Author: woann <304550409@qq.com>
 // +----------------------------------------------------------------------
 namespace Lib;
+
 class Redis
 {
     private static $instance;
