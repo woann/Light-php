@@ -7,22 +7,34 @@
 [![Php Version](https://img.shields.io/badge/php-%3E=7.2-brightgreen.svg?maxAge=2592000)](https://secure.php.net/)
 [![Swoole Version](https://img.shields.io/badge/swoole-%3E=4.2.9-brightgreen.svg?maxAge=2592000)](https://www.swoole.com/)
 
-## 简单描述
-* 路由
-* 中间件
-* 控制器
-* 采用laravel框架的ORM(Eloquent ORM)
-* 采用laravel框架的Blade模板引擎
-* redis操作
-* 框架大部分使用单例模式
+## 环境要求
+
+| 依赖 | 说明 |
+| -------- | -------- |
+| [PHP](https://secure.php.net/manual/zh/install.php) | `>= 7.2` `推荐7.2` |
+| [Swoole](https://www.swoole.com/) | `>= 4.2.9` `从2.0.12开始不再支持PHP5` `推荐4.2.9+` |
+| [Linux](https://www.linux.org/) | `大部分的linux系统都可以` `推荐centos` |
+
 ## 安装教程
-* 前提：安装swoole扩展，参考文档[https://wiki.swoole.com/](https://wiki.swoole.com/)
-* 执行安装命令 `composer create-project woann/light-php` 或者`git clone https://github.com/woann/Light-php.git` 
-* 重命名`.env.example`文件为`.env`,并配置
-* 项目根目录下执行 `php bin\light start` 启动服务
+
+1-1.通过[Composer](https://getcomposer.org/)安装([packagist](https://packagist.org/packages/woann/light-php)),此方式安装版本可能不是最新的，出现此问题请用1-2方式安装。
+```bash
+composer create-project woann/light-php -vvv
+```
+
+1-2.通过[Git](https://git-scm.com/)安装。
+```bash
+git clone https://github.com/woann/Light-php.git
+```
+
+2.重命名`.env.example`文件为`.env`,并配置
+
+3. 项目根目录下执行 `php bin\light start` 启动服务
+
 ![image.png](https://upload-images.jianshu.io/upload_images/9160823-d5a075e73fd5faeb.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240)
-* 浏览器访问`http://127.0.0.1:9521`
-* 暂时没有时间写文档，感兴趣的同学可以看看源代码...
+
+4. 浏览器访问`http://127.0.0.1:9521` 即可看到下图所示
+
 
 ## 压力测试
 * 调用框架内一个json输出方法，输出如下内容：
