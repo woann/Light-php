@@ -14,6 +14,7 @@ use Lib\Controller;
 class IndexController extends Controller {
     public function index()
     {
+        new aa;
         return "hello world ";
     }
 }

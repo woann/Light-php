@@ -9,6 +9,7 @@
 // | Author: woann <304550409@qq.com>
 // +----------------------------------------------------------------------
 return [
+    'debug'     =>env("APP_DEBUG",true),
     'name'      => env("SERVER_NAME","Light-php"),                            //项目名称
     'namespace' => 'app',                               //项目命名空间
     'path'      => realpath (__DIR__.'/../app/'),  //项目所在路径
@@ -41,6 +42,6 @@ return [
         // 日志记录级别，共8个级别
         'level' => ['EMERGENCY','ALERT','CRITICAL','ERROR','WARNING','NOTICE','INFO','DEBUG','SQL'] ,
     ] ,
-    'version' => 'v1.0.3',
+    'version' => 'v1.0.4',
 
 ];

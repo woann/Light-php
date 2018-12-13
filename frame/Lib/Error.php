@@ -150,6 +150,9 @@ class Error {
 
 //        $errorMsg = str_replace(SITE_PATH, '', $errorMsg);
 //        ob_end_clean();
+        if(!config("app.debug")){
+            $errorMsg = "服务器异常";
+        }
         $res = <<<EOT
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html>
@@ -207,7 +210,8 @@ class Error {
 <h1>$title Error</h1>
 <div class='info'>$errorMsg</div>
 EOT;
-        if (!empty($phpMsg)) {
+
+        if (!empty($phpMsg) && config("app.debug")) {
             $res .= '<div class="info">';
             $res .= '<p><strong>PHP Debug</strong></p>';
             $res .= '<table cellpadding="5" cellspacing="1" width="100%" class="table"><tbody>';
