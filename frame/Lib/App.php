@@ -45,7 +45,8 @@ class App{
         $middleware     = $router['middleware'];
         $method         = $router['method'];
         $classname      = "\\{$app_namespace}\\Controllers\\{$module}\\{$controller}" ;
-        if($method != $request->server['request_method']) {
+        //如果请求方法不是ANY(任何请求方式)，并且不匹配路由中定义的请求方式，则返回405
+        if($method != $request->server['request_method'] && $request->server['request_method'] != 'ANY') {
             //如果控制器不存在
             $response->header('Content-type',"text/html;charset=utf-8;");
             $response->status(405);
