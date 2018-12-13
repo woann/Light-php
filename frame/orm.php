@@ -18,6 +18,7 @@ $database = [
     'charset'       => $config['db_charset'],
     'collation'     => $config['db_collation'],
     'prefix'        => $config['db_prefix'],
+    'strict'        => true
 ];
 $capsule = new Capsule;
 // 创建链接
