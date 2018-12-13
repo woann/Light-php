@@ -67,36 +67,9 @@ function logs($type,...$log)
 function handleFatal($request,$response)
 {
     $error = error_get_last();
-    if (isset($error['type']))
-    {
-        switch ($error['type'])
-        {
-            case E_ERROR :
-            case E_PARSE :
-            case E_CORE_ERROR :
-            case E_COMPILE_ERROR :
-                $message = $error['message'];
-                $file = $error['file'];
-                $line = $error['line'];
-                $log = "$message ($file:$line)";
-                if (isset($request->server['request_uri']))
-                {
-                    $log .= '<br>[QUERY] ' . $request->server['request_uri'];
-                }
-                $info = str_replace("#","<br>#",$log);
-                if(!empty(ob_get_contents ())) ob_end_clean ();
-//                ob_start();
-                $content = \Lib\Exception::render('发现了一些错误',$info);
-    //            $content = ob_get_contents();
-    //            ob_end_clean();
-                $response->end($content);
-            default:
-                break;
-        }
-    }
-
+    $res = \Lib\Error::systemError("系统错误！",$error["message"]);
+    $response->end($res);
 }
-
 /**
  * @author woann<304550409@qq.com>
  * @param $view

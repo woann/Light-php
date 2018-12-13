@@ -14,7 +14,6 @@ class Test implements Middleware{
     {
         //在此处理中间件判断逻辑，
         //...
-
         //程序最后通过验证后，返回true;
         return true;
     }

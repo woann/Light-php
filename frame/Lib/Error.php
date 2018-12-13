@@ -8,19 +8,19 @@
 // +----------------------------------------------------------------------
 namespace Lib;
 class Error {
-
+    /**
+     * @author woann<304550409@qq.com>
+     * @param $title
+     * @param $message
+     * @return string
+     * @des 系统错误处理
+     */
     public static function systemError($title,$message) {
 
         list($showTrace, $logTrace) = self::debugBacktrace();
         return self::showError($title, "<li>$message</li>", $showTrace, 0);
     }
 
-    /**
-     * 代码执行过程回溯信息
-     *
-     * @static
-     * @access public
-     */
     public static function debugBacktrace() {
         $skipFunc[] = 'Error->debugBacktrace';
 
@@ -60,11 +60,11 @@ class Error {
     }
 
     /**
-     * 异常处理
-     *
-     * @static
-     * @access public
-     * @param mixed $exception
+     * @author woann<304550409@qq.com>
+     * @param $title
+     * @param $exception
+     * @param $response
+     * @des 异常处理
      */
     public static function exceptionError($title,$exception,$response) {
         $errorMsg = $exception->getMessage();
@@ -108,71 +108,24 @@ class Error {
         $response->end(self::showError($title, $errorMsg, $phpMsg));
     }
 
-    /**
-     * 记录错误日志
-     *
-     * @static
-     * @access public
-     * @param string $message
-     */
-    public static function writeErrorLog($message) {
-
-        return false; // 暂时不写入
-
-        $message = self::clear($message);
-        $time = time();
-        $file = LOG_PATH . '/' . date('Y.m.d') . '_errorlog.php';
-        $hash = md5($message);
-
-        $userId = 0;
-        $ip = get_client_ip();
-
-        $user = '<b>User:</b> userId=' . intval($userId) . '; IP=' . $ip . '; RIP:' . $_SERVER['REMOTE_ADDR'];
-        $uri = 'Request: ' . htmlspecialchars(self::clear($_SERVER['REQUEST_URI']));
-        $message = "<?php exit;?>\t{$time}\t$message\t$hash\t$user $uri\n";
-
-        // 判断该$message是否在时间间隔$maxtime内已记录过，有，则不用再记录了
-        if (is_file($file)) {
-            $fp = @fopen($file, 'rb');
-            $lastlen = 50000;  // 读取最后的 $lastlen 长度字节内容
-            $maxtime = 60 * 10;  // 时间间隔：10分钟
-            $offset = filesize($file) - $lastlen;
-            if ($offset > 0) {
-                fseek($fp, $offset);
-            }
-            if ($data = fread($fp, $lastlen)) {
-                $array = explode("\n", $data);
-                if (is_array($array))
-                    foreach ($array as $key => $val) {
-                        $row = explode("\t", $val);
-                        if ($row[0] != '<?php exit;?>') {
-                            continue;
-                        }
-                        if ($row[3] == $hash && ($row[1] > $time - $maxtime)) {
-                            return;
-                        }
-                    }
-            }
-        }
-
-    }
 
     /**
-     * 清除文本部分字符
-     *
-     * @param string $message
+     * @author woann<304550409@qq.com>
+     * @param $message
+     * @return mixed
+     * @des 清除文本部分字符
      */
     public static function clear($message) {
         return str_replace(array("\t", "\r", "\n"), " ", $message);
     }
 
     /**
-     * sql语句字符清理
-     *
-     * @static
-     * @access public
-     * @param string $message
-     * @param string $dbConfig
+     * /**
+     * @author woann<304550409@qq.com>
+     * @param $message
+     * @param $dbConfig
+     * @return mixed|string
+     * @des sql语句字符清理
      */
     public static function sqlClear($message, $dbConfig) {
         $message = self::clear($message);
@@ -186,13 +139,12 @@ class Error {
     }
 
     /**
-     * 显示错误
-     *
-     * @static
-     * @access public
-     * @param string $type 错误类型 db,system
-     * @param string $errorMsg
+     * @author woann<304550409@qq.com>
+     * @param $title
+     * @param $errorMsg
      * @param string $phpMsg
+     * @return string
+     * @des 显示错误
      */
     public static function showError($title, $errorMsg, $phpMsg = '') {
 

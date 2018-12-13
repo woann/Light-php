@@ -17,6 +17,6 @@ return [
     ],
     //Server::onClose
     'close'     => [
-        [\app\hook\FD::class,'close'],
+        [\app\Hook\TestHook::class,'close'],
     ],
 ];

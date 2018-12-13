@@ -63,6 +63,7 @@ class Server
             return ;
         }
         register_shutdown_function('handleFatal',$request,$response);
+        // 自定义异常函数
         App::getInstance()->http ($this->server,$request,$response);
     }
 
