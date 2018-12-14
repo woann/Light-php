@@ -31,7 +31,7 @@ return [
         'enable_static_handler' => true,
         'log_file'              => root_path("logs/swoole/".date('Ymd').'.log'),
         'log_level'             => 5,
-        'enable_coroutine'      => false
+        'enable_coroutine'      => true
     ],
 
     'log' => [
@@ -42,6 +42,6 @@ return [
         // 日志记录级别，共8个级别
         'level' => ['EMERGENCY','ALERT','CRITICAL','ERROR','WARNING','NOTICE','INFO','DEBUG','SQL'] ,
     ] ,
-    'version' => 'v1.0.4',
+    'version' => 'v1.0.5',
 
 ];

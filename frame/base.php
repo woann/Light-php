@@ -45,8 +45,8 @@ class start {
 
     public static function run($opt = NULL){
 
-        if (version_compare(phpversion(), '7.2', '<')) {
-            echo "PHP版本必须大于等于7.2 ，当前版本：",phpversion (),PHP_EOL;
+        if (version_compare(phpversion(), '7.1', '<')) {
+            echo "PHP版本必须大于等于7.1 ，当前版本：",phpversion (),PHP_EOL;
             die;
         }
 
