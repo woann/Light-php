@@ -11,9 +11,9 @@
         }
     ],
     "require": {
-        "xiaoler/blade": "^5.4",
         "illuminate/database": "^5.7",
         "illuminate/pagination": "^5.7",
-        "vlucas/phpdotenv": "^2.5"
+        "vlucas/phpdotenv": "^2.5",
+        "philo/laravel-blade": "^3.1"
     }
 }

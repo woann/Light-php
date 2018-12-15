@@ -56,26 +56,15 @@ class Controller
      * @author woann<304550409@qq.com>
      * @param $view
      * @param array $param
-     * @return string
-     * @throws \Throwable
+     * @return mixed
      * @des 调用blade 模板引擎渲染页面
      */
     final public function view($view,array $param = [])
     {
-        $path = [root_path('resources/views'), root_path('frame.Static')];
-        $cachePath = root_path('runtime/cache');
-        $file = new Filesystem;
-        $compiler = new BladeCompiler($file, $cachePath);
-        $compiler->directive('datetime', function($timestamp) {
-            return preg_replace('/(\(\d+\))/', '<?php echo date("Y-m-d H:i:s", $1); ?>', $timestamp);
-        });
-        $resolver = new EngineResolver;
-        $resolver->register('blade', function () use ($compiler) {
-            return new CompilerEngine($compiler);
-        });
-        $factory = new Factory($resolver, new FileViewFinder($file, $path));
-        $factory->addExtension('tpl', 'blade');
-        return $factory->make($view, $param)->render();
+        $views = root_path('resources/views');
+        $cache = root_path('runtime/cache');
+        $blade = new Blade($views, $cache);
+        return $blade->view()->make($view, $param)->render();
     }
 
     /**

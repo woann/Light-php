@@ -14,7 +14,7 @@ use Xiaoler\Blade\Compilers\BladeCompiler;
 use Xiaoler\Blade\Engines\CompilerEngine;
 use Xiaoler\Blade\Filesystem;
 use Xiaoler\Blade\Engines\EngineResolver;
-
+use Philo\Blade\Blade;
 /**
  * @author woann<304550409@qq.com>
  * @param $class
@@ -70,40 +70,20 @@ function handleFatal($request,$response)
     $res = \Lib\Error::systemError("系统错误！",$error["message"]);
     $response->end($res);
 }
+
 /**
  * @author woann<304550409@qq.com>
  * @param $view
  * @param array $param
- * @return string
- * @throws Throwable
+ * @return mixed
  * @des 调用blade模板引擎渲染页面
  */
 function view($view,array $param = [])
 {
-    $path = [root_path('resources/views'), root_path('frame/Static')];
-    $cachePath = root_path('runtime/cache');
-
-    $file = new Filesystem;
-    $compiler = new BladeCompiler($file, $cachePath);
-
-// you can add a custom directive if you want
-    $compiler->directive('datetime', function($timestamp) {
-        return preg_replace('/(\(\d+\))/', '<?php echo date("Y-m-d H:i:s", $1); ?>', $timestamp);
-    });
-
-    $resolver = new EngineResolver;
-    $resolver->register('blade', function () use ($compiler) {
-        return new CompilerEngine($compiler);
-    });
-
-// get an instance of factory
-    $factory = new Factory($resolver, new FileViewFinder($file, $path));
-
-// if your view file extension is not php or blade.php, use this to add it
-    $factory->addExtension('tpl', 'blade');
-
-// render the template file and echo it
-    return $factory->make($view, $param)->render();
+    $views = root_path('resources/views');
+    $cache = root_path('runtime/cache');
+    $blade = new Blade($views, $cache);
+    return $blade->view()->make($view, $param)->render();
 }
 
 function uploadFile($file,$path,$filename)
