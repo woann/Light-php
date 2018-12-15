@@ -42,6 +42,6 @@ return [
         // 日志记录级别，共8个级别
         'level' => ['EMERGENCY','ALERT','CRITICAL','ERROR','WARNING','NOTICE','INFO','DEBUG','SQL'] ,
     ] ,
-    'version' => 'v1.0.5',
+    'version' => 'v1.0.6',
 
 ];
