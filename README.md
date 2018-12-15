@@ -49,7 +49,7 @@ git clone https://github.com/woann/Light-php.git
 
 ![image.png](https://upload-images.jianshu.io/upload_images/9160823-d5a075e73fd5faeb.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240)
 
-4.浏览器访问`http://127.0.0.1:9521` 即可看到`hello world`的输出。至此，框架就安装完成了。
+4.浏览器访问`http://127.0.0.1:9521` 即可看到欢迎页面。至此，框架就安装完成了。
 
 ## 配置文件
 1.Light-php的配置文件在`/config`目录下，框架集成了全局环境配置文件`/.env`,常规配置都在.env文件中进行配置。
