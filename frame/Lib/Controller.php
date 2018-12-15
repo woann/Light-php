@@ -64,7 +64,9 @@ class Controller
         $views = root_path('resources/views');
         $cache = root_path('runtime/cache');
         $blade = new Blade($views, $cache);
-        return $blade->view()->make($view, $param)->render();
+        $content = $blade->view()->make($view, $param)->render();
+        unset($blade);
+        return $content;
     }
 
     /**
