@@ -34,7 +34,7 @@ class App{
     }
 
     public function http($server,$request,$response){
-//        var_dump($request);
+        $response->header('Content-type', 'text/html;charset=utf-8');
         $req    = Request::getInstance ();
         $req->set($request);
         $router = Router::getInstance ()->http($req->server['request_uri']);
